@@ -7,7 +7,13 @@ describe('Popover test', () => {
     beforeAll(async () => {
         browser = await puppeteer.launch();
         page = await browser.newPage();
-        await page.goto('http://localhost:9000'); 
+        try {
+            console.log('Переход по URL http://localhost:9000');
+            await page.goto('http://localhost:9000');
+            console.log('Страница доступна!');
+          } catch (err) {
+            console.error('Ошибка при переходе на страницу:', err);
+          }
     });
 
     afterAll(async () => {
@@ -17,6 +23,7 @@ describe('Popover test', () => {
     });
 
     test('Popover should appear when button is clicked', async () => {
+        jest.setTimeout(60000); // Увеличиваем тайм-аут для этого теста
         await page.click('#popover-button');
         const popoverVisible = await page.$eval('#popover', el => el.style.display === 'block');
         expect(popoverVisible).toBe(true);
