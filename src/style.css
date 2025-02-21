@@ -1,0 +1,52 @@
+body {
+    margin-top: 200px;
+    text-align: center;
+}
+
+button {
+    background-color: #ff294d;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popover {
+    position: absolute;
+    display: none; /* Скрываем popover по умолчанию */
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+    text-align: left;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #fffafa, #fffafa 50%, #ccc 50%, #ccc); /* градиент внутри popover */
+}
+
+/* Внизу popover делаем уголочек-указатель на кнопку*/
+.popover:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 15px solid #ccc;
+    border-top-color: #ccc;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -15px; 
+  }
+
+.popover-title {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.popover-content {
+    font-size: 14px;
+    font-size: 18px;
+}
