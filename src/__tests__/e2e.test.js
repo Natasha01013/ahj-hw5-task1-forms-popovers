@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+jest.setTimeout(60000); // Увеличиваем тайм-аут для теста
+
 describe('Popover test', () => {
     let browser;
     let page;
@@ -22,14 +24,22 @@ describe('Popover test', () => {
         }
     });
 
+    // Закрытие popover перед каждым тестом, если он открыт
+    beforeEach(async () => {
+      const popoverVisible = await page.$eval('#popover', el => el.style.display === 'block');
+      if (popoverVisible) {
+          await page.click('#popover-button'); // Закрываем popover, кликнув на кнопку
+      }
+    });
+
     test('Popover should appear when button is clicked', async () => {
-        jest.setTimeout(60000); // Увеличиваем тайм-аут для этого теста
         await page.click('#popover-button');
         const popoverVisible = await page.$eval('#popover', el => el.style.display === 'block');
         expect(popoverVisible).toBe(true);
       });
     
     test('Popover should be centered horizontally over button', async () => {
+        await page.click('#popover-button'); // Открываем поповер перед тестом
         const buttonPosition = await page.$eval('#popover-button', button => {
           const rect = button.getBoundingClientRect();
           return { left: rect.left, height: rect.height };
